@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Weather</title>
+</head>
+<body>
+<div class='jumbotron'>
+<div class='container'>
+		<div class='row new-weather-info'> 
+			<h2>Weather</h2>
+		    <h5>Get Weather Info</h5> 
+			<div class='input location-input-container col-md-2 col-sm-4 col-xs-6'>Location: State, City or ZIP code 
+				<input class = 'input-field' id='search-input' type="text" placeholder="State, City"><input id='search-location-button' type="submit" value="Search"></input>
+				</input>
+			</div>
+			<br>
+			<br>
+			<br>
+		</div>
+		<div class='row weather-output'> 
+		    <h5>Weather Information</h5>
+				<div class='info-titles col-md-6 col-sm-6 col-xs-6'>
+					<div class='row current-conditions'>Current Conditions</div>
+					<div class='row temperature'>Temperature</div>
+					<div class='row humidity'>Humidity</div>
+					<div class='row forecast'>Forecast</div>
+					<div class='row visibility'>Visibility</div>
+				</div> <!-- info1-output column weather-output -->
+				<div class='info-actual col-md-6 col-sm-6 col-xs-6'>
+					<div class='row output current-conditions-output'></div>
+					<div class='row output temperature-output'></div>
+					<div class='row output humidity-output'></div>
+					<div class='row output forecast-output'></div>
+					<div class='row output visibility-output'></div>
+				</div> <!-- info1-output column weather-output -->
+				<!--
+				<div class='output info2-output col-md-6 col-sm-6 col-xs-6'>Other
+					<div class='row'></div>
+					<div class='row'></div>
+					<div class='row'></div>
+					<div class='row'></div>
+					<div class='row'></div>
+				</div> info2-output column weather-output 
+				-->
+		</div> <!-- row weather-output -->
+		</div>
+	</div>
+	</div>  <!-- jumbotron-->
+ 	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="http://momentjs.com/downloads/moment.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<script src="main.js"></script>
+	<link rel="stylesheet" href="style.css">
+</body>
+</html>

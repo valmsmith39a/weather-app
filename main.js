@@ -1,8 +1,8 @@
 $(document).ready(init);
 
 var weatherDataObjectG = {
-		State:"",
-		City:"",
+		state:"",
+		city:"",
 	  ZIPCode:"",
 		currentConditions:"", 
 		temperature:"",
@@ -30,6 +30,8 @@ function findCurrentLocation(){
 			state = data.location.state;
 			var stateCityString = state + ',' + ' '+ city;
 			$('.input-field').val(stateCityString);
+
+			setWeatherObject(stateCityString);
 		},
 		error:function(err){
 			alert(err);
@@ -45,16 +47,20 @@ function searchButtonClicked(){
 
 function displayElements(){
 	$('.output').empty();
+	$('.city-name-output').empty();
+
+	$cityName = $('<div>').addClass('city-name-title').text(weatherDataObjectG.city);
 	$currentConditions = $('<div>').addClass('current-conditions-data').text(weatherDataObjectG.currentConditions);
 	$temperature = $('<div>').addClass('temp-data').text(weatherDataObjectG.temperature);
 	$humidity = $('<div>').addClass('humidty-data').text(weatherDataObjectG.humidity);
 	$forecast = $('<div>').addClass('forecast-data').text(weatherDataObjectG.forecast);
 	$visibility = $('<div>').addClass('visibility-data').text(weatherDataObjectG.visibility_mi);
 
+	$('.city-name-output').append($cityName);
 	$('.current-conditions-output').append($currentConditions);
 	$('.temperature-output').append($temperature);
 	$('.humidity-output').append($humidity);
-	$('.forecast-output').append($forecast);
+	//$('.forecast-output').append($forecast);
 	$('.visibility-output').append($visibility);
 }
 
@@ -69,18 +75,16 @@ function formatAPI_URL(searchInput){
 	if(regExCityState.test(searchInput) === true){
 		var regExState = /[A-Z]{2}/;
 		var stateArray = searchInput.match(regExState);
+		//weatherDataObjectG.State = stateArray[0]; 
 
 		var regExCity = /\, (.*)/;
 		var cityArray = searchInput.match(regExCity);
+		//weatherDataObjectG.City = cityArray[1];
 
 		var formattedState = stateArray[0];
-		weatherDataObjectG.State = formattedState; 
-
 		var formattedCity = cityArray[1].split(" ").join("_"); 
-		weatherDataObjectG.City = formattedCity;
-
+		
 		formattedStateCity = stateArray[0] + '/' + cityArray[1];
-
 		apiURL = baseURL + formattedStateCity + '.json';
 	}
 
@@ -100,6 +104,8 @@ function setWeatherObject (searchInput){
 		type:"GET", 
 		contenttype:'json',
 		success:function(data){
+			weatherDataObjectG.city = data.current_observation.display_location.city;
+			weatherDataObjectG.state = data.current_observation.display_location.state;
 	  	weatherDataObjectG.currentConditions = data.current_observation.weather;
 			weatherDataObjectG.temperature = data.current_observation.temperature_string;
 			weatherDataObjectG.humidity = data.current_observation.relative_humidity;

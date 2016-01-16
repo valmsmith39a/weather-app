@@ -1,0 +1,32 @@
+body {
+	background-image:url('http://images.techhive.com/images/article/2013/02/clouds-100027375-gallery.jpg');
+	background-size:100%;
+}
+
+.jumbotron {
+	font-family: 'Architects Daughter', cursive;
+	background-color: rgba(235,235,235,.70);
+	font-size:14px;
+}
+
+.input-field {
+	font-family: 'Ek Mukta', sans-serif;
+}
+
+.info-titles {
+	text-align:center;
+}
+
+.weather-output {
+	text-align: center;
+	font-size:20px;
+}
+
+.location-input-container {
+	font-family: 'Ek Mukta', sans-serif;
+}
+
+#weather-title {
+	text-align:center;
+}
+

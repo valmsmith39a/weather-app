@@ -8,17 +8,15 @@ var weatherDataObjectG = {
 		temperature:"",
 		humidity:"",
 		forecast:"",
-		visibility:""
+		visibility_mi:""
 	};
 
 function init(){
-	console.log('in init jquery');
 	findCurrentLocation();
 	$('#search-location-button').on('click', searchButtonClicked);
 }
 
 function findCurrentLocation(){
-	console.log('in find current location');
 	var locationAPI_URL = 'http://api.wunderground.com/api/fe105b0e14a53aed/geolookup/q/autoip.json';
 	var city = "";
 	var state = "";
@@ -30,7 +28,6 @@ function findCurrentLocation(){
 		success:function(data){
 			city = data.location.city; 
 			state = data.location.state;
-			console.log('city is: ' + city + ' state is ' + state);
 			var stateCityString = state + ',' + ' '+ city;
 			$('.input-field').val(stateCityString);
 		},
@@ -41,27 +38,19 @@ function findCurrentLocation(){
 }
 
 function searchButtonClicked(){
-	console.log('in search button clicked');
-
-	// Get the input value 
 	var searchInput = $('.input-field').val();
-
 	// Access API 
 	setWeatherObject(searchInput);
-
 }
 
 function displayElements(){
-	// Create weather object DOM elements 
 	$('.output').empty();
-
 	$currentConditions = $('<div>').addClass('current-conditions-data').text(weatherDataObjectG.currentConditions);
 	$temperature = $('<div>').addClass('temp-data').text(weatherDataObjectG.temperature);
 	$humidity = $('<div>').addClass('humidty-data').text(weatherDataObjectG.humidity);
 	$forecast = $('<div>').addClass('forecast-data').text(weatherDataObjectG.forecast);
-	$visibility = $('<div>').addClass('visibility-data').text(weatherDataObjectG.visibility);
+	$visibility = $('<div>').addClass('visibility-data').text(weatherDataObjectG.visibility_mi);
 
-	// Display data 
 	$('.current-conditions-output').append($currentConditions);
 	$('.temperature-output').append($temperature);
 	$('.humidity-output').append($humidity);
@@ -70,8 +59,6 @@ function displayElements(){
 }
 
 function formatAPI_URL(searchInput){
-	console.log('in formatURL');
-
 	var apiURL = '';
 	var baseURL = 'http://api.wunderground.com/api/fe105b0e14a53aed/conditions/q/'; 
 
@@ -87,36 +74,27 @@ function formatAPI_URL(searchInput){
 		var cityArray = searchInput.match(regExCity);
 
 		var formattedState = stateArray[0];
-		console.log('formatted State: ', formattedState);
-
 		weatherDataObjectG.State = formattedState; 
 
 		var formattedCity = cityArray[1].split(" ").join("_"); 
-		console.log('formatted city: ', formattedCity);
-
 		weatherDataObjectG.City = formattedCity;
 
 		formattedStateCity = stateArray[0] + '/' + cityArray[1];
-		console.log('formated string is: ', formattedStateCity);
 
 		apiURL = baseURL + formattedStateCity + '.json';
-		console.log('if search input is city', apiURL);
 	}
 
 	else if (regExZipCode.test(searchInput) === true){
 		apiURL = baseURL + searchInput.toString() + '.json';
 		weatherDataObjectG.ZIPCode = searchInput.toString();
-		console.log('if search input is a number')
 	}
 
 	return apiURL; 
 }
 
 function setWeatherObject (searchInput){
-console.log('in access API');
 	var formattedAPI_URL = formatAPI_URL(searchInput);
 
-	// Obtained information based on given location info 
 	$.ajax({
 		url: formattedAPI_URL, 
 		type:"GET", 
@@ -126,11 +104,8 @@ console.log('in access API');
 			weatherDataObjectG.temperature = data.current_observation.temperature_string;
 			weatherDataObjectG.humidity = data.current_observation.relative_humidity;
 			weatherDataObjectG.forecast = data.current_observation.forecast_url;
-			weatherDataObjectG.visibility = data.current_observation.visibility_mi;
+			weatherDataObjectG.visibility_mi = data.current_observation.visibility_mi;
 			displayElements();
-
-			console.log('object', weatherDataObjectG);
-
 		},
 		error:function(err){
 			alert(err);

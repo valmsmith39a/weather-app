@@ -75,11 +75,9 @@ function formatAPI_URL(searchInput){
 	if(regExCityState.test(searchInput) === true){
 		var regExState = /[A-Z]{2}/;
 		var stateArray = searchInput.match(regExState);
-		//weatherDataObjectG.State = stateArray[0]; 
-
+		
 		var regExCity = /\, (.*)/;
 		var cityArray = searchInput.match(regExCity);
-		//weatherDataObjectG.City = cityArray[1];
 
 		var formattedState = stateArray[0];
 		var formattedCity = cityArray[1].split(" ").join("_"); 
